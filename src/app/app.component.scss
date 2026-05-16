@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #FFFFFF;
+  color: #000000;
+}
+
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+}

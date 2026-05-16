@@ -1,0 +1,103 @@
+.dashboard-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem 3rem;
+
+  .page-header h1 {
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+  }
+  
+  .muted {
+    color: #484848;
+  }
+  
+  .center {
+    text-align: center;
+  }
+  
+  .card {
+    background: #FFFFFF;
+    border: 1px solid #808080;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .empty {
+    text-align: center;
+  }
+  
+  .link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-weight: 600;
+    color: #2563EB;
+    text-decoration: none;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+  }
+  
+  .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  
+  .label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #000000;
+  }
+  
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .chip {
+    border-radius: 999px;
+    border: 1px solid #808080;
+    background: #FFFFFF;
+    padding: 0.5rem 0.80rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  
+  .chip.active {
+    background: #2563EB;
+    color: #FFFFFF;
+  }
+  
+  .repos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  
+  .toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  .chart-card {
+    min-height: 320px;
+  }
+  
+  .banner.error {
+    background: #FFFFFF;
+    border: 1px solid #808080;
+    color: #FF0000;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+  }
+}

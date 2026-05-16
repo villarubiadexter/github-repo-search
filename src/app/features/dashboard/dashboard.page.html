@@ -1,0 +1,59 @@
+<div class="dashboard-page">
+  <header class="page-header">
+    <h1>Dashboard</h1>
+    <p class="muted">Compare saved repositories. Filter by metric and repository.</p>
+  </header>
+  
+  @if (loading()) {
+    <app-spinner label="Loading repository metrics" />
+  } @else if (!storage.savedRepos().length) {
+    <div class="card empty">
+      <p>No repositories saved yet.</p>
+      <a routerLink="/search" class="link">Go to search</a>
+    </div>
+  } @else if (errorMessage()) {
+    <p class="banner error" role="alert">{{ errorMessage() }}</p>
+  } @else {
+    <section class="card controls">
+      <div class="control">
+        <span class="label">Metric</span>
+        <div class="chips">
+          @for (opt of metricOptions; track opt.value) {
+            <button
+              type="button"
+              class="chip"
+              [class.active]="selectedMetric() === opt.value"
+              (click)="onMetricChange(opt.value)"
+            >
+              {{ opt.label }}
+            </button>
+          }
+        </div>
+      </div>
+
+      <div class="control">
+        <span class="label">Repositories</span>
+        <div class="repos">
+          @for (repo of details(); track repo.id) {
+            <label class="toggle">
+              <input
+                type="checkbox"
+                [checked]="isRepoEnabled(repo.full_name)"
+                (change)="toggleRepo(repo.full_name, $event.target.checked)"
+              />
+              <span>{{ repo.full_name }}</span>
+            </label>
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="card chart-card">
+      @if (chartRepos().length === 0) {
+        <p class="muted center">Select at least one repository to see the chart.</p>
+      } @else {
+        <app-repo-bar-chart [repos]="chartRepos()" [metric]="selectedMetric()" />
+      }
+    </section>
+  }
+</div>

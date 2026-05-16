@@ -1,0 +1,42 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  padding: 1rem;
+  background: #000000;
+  color: #FFFFFF;
+
+  .brand {
+    font-weight: 800;
+    color: #FFFFFF;
+    text-decoration: none;
+  }
+  
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .nav a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  .nav a:hover {
+    color: #FFFFFF;
+  }
+  
+  .nav a.active {
+    color: #FFFFFF;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  
+}
+
+

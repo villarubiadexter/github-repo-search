@@ -1,0 +1,13 @@
+<header class="header">
+  <a [routerLink]="brandLink()" class="brand">{{ brandTitle() }}</a>
+  <nav class="nav">
+    @for (tab of tabs; track tab.path) {
+      <a
+        [routerLink]="tab.path"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: tab.exact ?? false }"
+        >{{ tab.label }}</a
+      >
+    }
+  </nav>
+</header>

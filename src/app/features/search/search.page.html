@@ -1,0 +1,101 @@
+<div class="search-page">
+  <header class="page-header">
+    <h1>GitHub repository search</h1>
+    <p class="muted">Find repositories and add them to your dashboard.</p>
+  </header>
+
+  <section class="card filters">
+    <div class="field">
+      <label for="search">Keyword</label>
+      <input
+        id="search"
+        type="search"
+        [value]="keyword()"
+        (input)="onKeywordInput($event.target.value)"
+        placeholder="e.g. angular, react"
+        (keydown.enter)="runSearch()"
+      />
+    </div>
+    <div class="field">
+      <label for="sort">Sort by</label>
+      <select id="sort" [value]="sort()" (change)="onSortChange($event)">
+        @for (opt of sortOptions; track opt.value) {
+          <option [value]="opt.value">{{ opt.label }}</option>
+        }
+      </select>
+    </div>
+    <div class="field">
+      <label for="order">Order</label>
+      <select id="order" [value]="order()" (change)="onOrderChange($event)">
+        <option value="desc">Descending</option>
+        <option value="asc">Ascending</option>
+      </select>
+    </div>
+    <button type="button" class="btn primary" (click)="runSearch()" [disabled]="loading()">
+      {{ loading() ? 'Searching…' : 'Search' }}
+    </button>
+  </section>
+
+  @if (errorMessage()) {
+    <p class="banner error" role="alert">{{ errorMessage() }}</p>
+  }
+
+  @if (loading() && items().length === 0) {
+    <p class="muted center">Loading results…</p>
+  }
+
+  @if (!loading() && items().length === 0 && activeQuery()) {
+    <p class="muted center">No repositories found.</p>
+  }
+
+  <div
+    class="results-scroll"
+    infiniteScroll
+    [infiniteScrollDistance]="infiniteScrollDistance"
+    [infiniteScrollThrottle]="infiniteScrollThrottle"
+    [infiniteScrollDisabled]="infiniteScrollDisabled()"
+    [immediateCheck]="true"
+    (scrolled)="loadNextPage()"
+  >
+    <ul class="results">
+      @for (repo of items(); track repo.id) {
+        <li class="card result">
+          <div class="result-main">
+            <a [href]="repo.html_url" target="_blank" rel="noopener" class="result-title">{{
+              repo.full_name
+            }}</a>
+            <p class="result-desc muted">{{ repo.description || 'No description.' }}</p>
+            <div class="result-meta muted">
+              <span>Stars: {{ repo.stargazers_count | number }}</span>
+              <span>Forks: {{ repo.forks_count | number }}</span>
+              @if (repo.language) {
+                <span class="lang">{{ repo.language }}</span>
+              }
+            </div>
+          </div>
+          <div class="result-actions">
+            <button
+              type="button"
+              class="btn"
+              [class.primary]="!isSaved(repo.id)"
+              [disabled]="isSaved(repo.id)"
+              (click)="addToDashboard(repo)"
+            >
+              {{ isSaved(repo.id) ? 'Saved' : 'Add to dashboard' }}
+            </button>
+          </div>
+        </li>
+      }
+    </ul>
+
+    @if (loadingMore()) {
+      <app-spinner label="Loading more results" />
+    }
+
+    @if (totalCount() !== null && items().length) {
+      <p class="muted center small">
+        Showing {{ items().length | number }} of {{ totalCount()! | number }}
+      </p>
+    }
+  </div>
+</div>
